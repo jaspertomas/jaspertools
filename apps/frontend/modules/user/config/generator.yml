@@ -1,0 +1,29 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           sfUserUser
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          user
+    with_doctrine_route:     1
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    
+        display: [first_name,last_name,company]
+      filter:  
+        #display: [id,sf_guard_user,prefix,first_name,middle_name,last_name,suffix,company,date_of_birth,created_at,updated_at,created_by_user,updated_by_user]
+        display: [first_name,last_name,company]
+      form:
+        class:            mySimpleUserForm
+      edit:    
+        title: Edit User Profile
+        actions: 
+          _list: ~
+          _save: ~
+      new:     
+        title: Register User
