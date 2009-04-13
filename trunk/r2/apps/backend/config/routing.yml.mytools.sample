@@ -1,9 +1,0 @@
-user:
-  class: sfDoctrineRouteCollection
-  options:
-    model:               sfUserUser
-    module:              user
-    prefix_path:         user
-    column:              id
-    with_wildcard_routes: true
-
