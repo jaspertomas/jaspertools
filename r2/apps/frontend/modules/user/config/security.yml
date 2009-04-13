@@ -1,7 +1,0 @@
-new:
-  is_secure: off
-create:
-  is_secure: off
-
-default:
-  is_secure: on

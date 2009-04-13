@@ -1,2 +1,0 @@
-remember_me:
-  class: sfGuardRememberMeFilter
