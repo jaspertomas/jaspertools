@@ -1,0 +1,14 @@
+dev:
+  connection1:
+    class: sfDoctrineDatabase
+test:
+  connection1:
+    class: sfDoctrineDatabase
+
+all:
+  connection1:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:dbname=sf_doctrune_user_plugin_test;host=localhost'
+      username: root
+      password: null
