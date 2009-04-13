@@ -1,0 +1,17 @@
+all:
+  .settings:
+    # Form security secret (CSRF protection)
+    csrf_secret:       MrClean     # Unique secret to enable CSRF protection or false to disable
+
+    # Output escaping settings
+    escaping_strategy:      true            # Determines how variables are made available to templates. Accepted values: on, off.
+    escaping_method:        ESC_SPECIALCHARS # Function or helper used for escaping. Accepted values: ESC_RAW, ESC_ENTITIES, ESC_JS, ESC_JS_NO_ENTITIES, and ESC_SPECIALCHARS.
+
+    enabled_modules:      [default, sfGuardAuth, sfUserSimpleUser]
+    #enabled_modules:      [default, sfGuardAuth, sfGuardGroup, sfGuardUser, sfGuardPermission, sfUserAddressType, sfUserCreditCardType, sfUserEmailAddressType, sfUserImAccountType, sfUserPhoneType, sfUserCountry, sfUserState, sfUserAddress, sfUserBilling, sfUserEmailAddress, sfUserImAccount, sfUserPhone, sfUserUser, sfUserAdvancedUser, sfUserSimpleUser]
+
+    login_module:           sfGuardAuth
+    login_action:           signin
+    
+    secure_module:          sfGuardAuth
+    secure_action:          secure
