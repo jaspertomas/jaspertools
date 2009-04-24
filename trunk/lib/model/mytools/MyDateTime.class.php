@@ -41,7 +41,8 @@ class MyDateTime
     if(MyTools::slugify($string)=="" or MyTools::slugify($string)=="n-a") 
       return self::emptydate(); 
 
-    $datearray=explode("-",$string); 
+    $array=explode(" ",$string); 
+    $datearray=explode("-",$array[0]);
 
     return new MyDateTime($datearray[0],$datearray[1],$datearray[2],0,0,0); 
   } 
