@@ -1,0 +1,90 @@
+<!-- apps/frontend/templates/layout.php -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Quirino Provincial Government Accounting System</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <?php include_javascripts() ?>
+    <?php include_stylesheets() ?>
+  </head>
+  <body>
+    <div id="container">
+    <?php use_helper('I18N', 'Date') ?>
+
+      <center>
+      <div>
+        <div class="content">
+          <h1><a href="/"><img src="/images/quirino-accountable.gif" alt="Quirino Provincial Government Accounting System" /></a></h1>
+          <div>
+            <?php /*
+            <div class="search">
+              <h2>Ask for a job</h2>
+            </div>
+            */?>
+          </div>
+        </div>
+      </div>
+      </center>
+    		<h2>
+    		<br>
+              <?php if($sf_user->getGuardUser()){ ?>
+            		<div style="float:right;">
+            		<?php 
+
+            		  echo "Welcome ".$sf_user->getGuardUser()->getUsername();
+            		  if($sf_user->getGuardUser()->getIsSuperAdmin())
+            		  {
+                    echo 
+                      " | ".
+                      link_to("Frontend","/../index.php");
+            		  }
+                  echo 
+                    " | ".
+                    link_to("Logout","@sf_guard_signout").
+                    " | ".
+                    link_to("Edit Profile",url_for("@user_edit?id=".$sf_user->getGuardUser()->getUser()->getId())); ?>
+                </div>
+              		<?php 
+                    echo link_to("Home Page","@homepage");//.
+                    /*
+                    " | ".
+                    link_to("Documents","home/documents").
+                    " | ".
+                    link_to("Tables","home/tables").
+                    " | ".
+                    link_to("Reports","report/index").
+                    " | ".
+                    link_to("Budget","budget_period/show?id=".BudgetPeriodTable::getCurrentPeriod()->getId()).
+                    " | ".
+                    link_to("Admin","home/admin");
+                    */
+                  ?>
+              <?php }else{ ?>
+            		<div style="float:right;">
+              		<?php echo link_to("Please login","@sf_guard_signin"); ?>
+                </div>
+                <br>
+          		<?php } ?>
+             <hr>
+          </h2>
+          <div id="content">
+          <?php if ($sf_user->hasFlash('notice')): ?>
+          <div class="flash_notice">
+          <?php echo $sf_user->getFlash('notice') ?>
+          </div>
+          <?php endif; ?>
+          <?php if ($sf_user->hasFlash('error')): ?>
+          <div class="flash_error">
+          <?php echo $sf_user->getFlash('error') ?>
+          </div>
+          <?php endif; ?>
+          <div class="content">
+          <?php echo $sf_content ?>
+          </div>
+          </div>
+          <div id="footer">
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+<!-- apps/frontend/templates/layout.php -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <title>Quirino Provincial Government Accounting System</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <?php include_javascripts() ?>
+    <?php include_stylesheets() ?>
+  </head>
+  <body>
+    <div id="container">
+    <?php use_helper('I18N', 'Date') ?>
+
+      <center>
+      <div>
+        <div class="content">
+          <h1><a href="/"><img src="/images/quirino-accountable.gif" alt="Quirino Provincial Government Accounting System" /></a></h1>
+          <div>
+            Current accounting period is <?php echo PeriodTable::getCurrentPeriod() ?>
+            <?php if(count(JournalEntryTable::getEmptyOrImbalanced())>0){?>
+              <br><font color=red><?php echo link_to("Empty or imbalanced journal entries exist","journal_entry/problem"); ?></font>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+      </center>
+    		<h2>
+    		<br>
+              <?php if($sf_user->getGuardUser()){ ?>
+            		<div style="float:right;">
+            		<?php 
+            		  echo "Welcome ".$sf_user->getGuardUser()->getUsername();
+            		  if($sf_user->getGuardUser()->getIsSuperAdmin())
+            		  {
+                    echo 
+                      " | ".
+                      link_to("Backend","/../backend.php");
+            		  }
+                  echo " | ".
+                    link_to("Logout","@sf_guard_signout").
+                    " | ".
+                    link_to("Edit Profile",url_for("@user_edit?id=".$sf_user->getGuardUser()->getUser()->getId())); ?>
+                </div>
+              		<?php 
+                    echo link_to("Home Page","@homepage").
+                    " | ".
+                    link_to("Accounting Periods","period/index").
+                    " | ".
+                    link_to("Accounts","account/index").
+                    " | ".
+                    link_to("Journal Entries","journal_entry/index").
+                    " | ".                    link_to("New Journal Entry","journal_entry/new").
+                    " | ".                    link_to("Reports for Current Period","period/show?id=".PeriodTable::getCurrentPeriod()->getId()).
+                    " | ".                    link_to("Future Development","home/futuredev");
+                  ?>
+              <?php }else{ ?>
+            		<div style="float:right;">
+              		<?php echo link_to("Please login","@sf_guard_signin"); ?>
+                </div>
+                <br>
+          		<?php } ?>
+             <hr>
+          </h2>
+          <div id="content">
+          <?php if ($sf_user->hasFlash('notice')): ?>
+          <div class="flash_notice">
+          <?php echo $sf_user->getFlash('notice') ?>
+          </div>
+          <?php endif; ?>
+          <?php if ($sf_user->hasFlash('error')): ?>
+          <div class="flash_error">
+          <?php echo $sf_user->getFlash('error') ?>
+          </div>
+          <?php endif; ?>
+          <div class="content">
+          <?php echo $sf_content ?>
+          </div>
+          </div>
+          <div id="footer">
+      </div>
+    </div>
+  </body>
+</html>

@@ -24,6 +24,12 @@ class userActions extends autoUserActions
     //redirect user to his own profile
     $this->redirect("@user_edit?id=".$this->getUser()->getUser()->getUser()->getId());
   }
+  //disable this to enable frontend registration
+  public function executeNew(sfWebRequest $request)
+  {
+    //redirect user to his own profile
+    $this->redirect("@user_edit?id=".$this->getUser()->getUser()->getUser()->getId());
+  }
   public function executeEdit(sfWebRequest $request)
   {
     $this->sf_user_user = $this->getRoute()->getObject();
@@ -33,11 +39,11 @@ class userActions extends autoUserActions
     //unless he is super admin
     if(
       $this->sf_user_user->getId()!=$this->getUser()->getUser()->getUser()->getId() and
-      !$this->getUser()->getUser()->getIsSuperAdmin()
+      //!$this->getUser()->getUser()->getIsSuperAdmin()
       )
       {
         $this->getUser()->setFlash('error', $this->getUser()->getFlash('error').' Cannot edit data of other users.');
-        $this->redirect("@homepage");
+        $this->redirect("@user_edit?id=".$this->getUser()->getUser()->getUser()->getId());
       }
   }
 
@@ -52,6 +58,15 @@ class userActions extends autoUserActions
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $sf_user_user)));
 
+      //login
+      //this is a convenience feature for frontend registration
+      $this->getUser()->signin($sf_user_user->getGuardUser(), false);
+
+      //redirect to home
+      $this->redirect("@homepage");
+
+      /*
+      //only admin should be able to use save and add user functionality
       if ($request->hasParameter('_save_and_add'))
       {
         $this->getUser()->setFlash('notice', $this->getUser()->getFlash('notice').' You can add another one below.');
@@ -66,6 +81,7 @@ class userActions extends autoUserActions
         //redirect to home
         $this->redirect("@homepage");
       }
+      */
     }
     else
     {
