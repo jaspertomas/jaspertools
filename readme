@@ -1,0 +1,12 @@
+To use:
+copy & paste all the contents of this folder to your application's root folder.
+
+Frontend registration has been disabled
+to enable frontend registration,
+edit
+-frontend/user/actions: 
+-- comment out executeNew 
+-frontend/user/security.yml
+-- uncomment the lines
+
+Thanks to the developers of Symfony, Doctrine, SfGuard and SfGuardUser
