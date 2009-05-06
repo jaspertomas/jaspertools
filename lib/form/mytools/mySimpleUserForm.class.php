@@ -20,9 +20,20 @@ class mySimpleUserForm extends sfUserUserForm
 
     # Setup sfGuardUser
     //use myGuardUserForm instead of sfUserGuardUserForm
-    $sf_guard_user = new myGuardUserForm($this->getObject()->getGuardUser());
+    $sf_guard_user = new sfUserGuardUserForm($this->getObject()->getGuardUser());
     $sf_guard_user->validatorSchema['password']->setOption('required', false);
     $sf_guard_user->validatorSchema['password_confirmation']->setOption('required', false);
+
+    unset($sf_guard_user['algorithm']);
+    unset($sf_guard_user['salt']);
+    unset($sf_guard_user['last_login']);
+    unset($sf_guard_user['created_at']);
+    unset($sf_guard_user['updated_at']);
+    unset($sf_guard_user['is_active']);
+    unset($sf_guard_user['is_super_admin']);
+    unset($sf_guard_user['groups_list']);
+    unset($sf_guard_user['permissions_list']);
+
     unset($this['sf_guard_user_id']);
     $this->embedForm('sf_guard_user', $sf_guard_user);
 
