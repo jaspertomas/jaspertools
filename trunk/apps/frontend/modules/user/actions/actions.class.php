@@ -17,11 +17,12 @@ class userActions extends autoUserActions
   {
     //redirect user to his own profile
                                            //myUser->sfGuardUser()->sfUserUser()
-    $this->redirect("@user_show?id=".$this->getUser()->getUser()->getUser()->getId());
+    $this->redirect("@user_edit?id=".$this->getUser()->getUser()->getUser()->getId());
   }
   public function executeShow(sfWebRequest $request)
   {
-    $user=$this->getUser()->getUser()->getUser();
+    //redirect user to his own profile
+    $this->redirect("@user_edit?id=".$this->getUser()->getUser()->getUser()->getId());
   }
   public function executeEdit(sfWebRequest $request)
   {
@@ -34,7 +35,10 @@ class userActions extends autoUserActions
       $this->sf_user_user->getId()!=$this->getUser()->getUser()->getUser()->getId() and
       !$this->getUser()->getUser()->getIsSuperAdmin()
       )
-      $this->redirect("@homepage");
+      {
+        $this->getUser()->setFlash('error', $this->getUser()->getFlash('error').' Cannot edit data of other users.');
+        $this->redirect("@homepage");
+      }
   }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
