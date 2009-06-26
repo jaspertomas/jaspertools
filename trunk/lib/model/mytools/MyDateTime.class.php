@@ -13,7 +13,7 @@ class MyDateTime
     echo new MyDateTime(2001,2,3,4,5,6);
 
   */
-  public $timestamp=0;
+  private $timestamp=0;
   function __construct($year,$month,$day,$hour,$minute,$second) {$this->timestamp=mktime($hour, $minute, $second, $month, $day, $year);}
 
   static function emptydate() { return new MyDateTime(0,0,0,0,0,0); } 
@@ -49,7 +49,7 @@ class MyDateTime
 
     return new MyDateTime($datearray[0],$datearray[1],$datearray[2],0,0,0); 
   } 
-  static function fromtimestamp() { }
+  static function fromtimestamp($timestamp) {$date=self::emptydate();$date->timestamp=$timestamp;return $date;}
 
   function totimestamp() { return $this->timestamp; }
   function __toString() 
