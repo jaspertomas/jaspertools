@@ -126,11 +126,13 @@ class MyDateTime
 
   function isearlierthan($date){return $this->timestamp < $date->totimestamp();}
   function islaterthan($date){return $this->timestamp > $date->totimestamp();}
+  function isequalto($date){return $this->timestamp == $date->totimestamp();}
   function isearlierthanorequalto($date){return $this->timestamp <= $date->totimestamp();}
   function islaterthanorequalto($date){return $this->timestamp >= $date->totimestamp();}
 
   function isbefore($date){return $this->timestamp < $date->totimestamp();}
   function isafter($date){return $this->timestamp > $date->totimestamp();}
-  function isbeforeorequalto($date){return $this->timestamp <= $date->totimestamp();}
-  function isafterorequalto($date){return $this->timestamp >= $date->totimestamp();}
+  function ison($date){return $this->timestamp == $date->totimestamp();}
+  function isonorbefore($date){return $this->timestamp <= $date->totimestamp();}
+  function isonorafter($date){return $this->timestamp >= $date->totimestamp();}
 }
