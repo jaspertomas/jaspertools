@@ -13,11 +13,11 @@ class MyDateTime
     echo new MyDateTime(2001,2,3,4,5,6);
 
   */
-  private $timestamp=0;
+  public $timestamp=0;
   function __construct($year,$month,$day,$hour,$minute,$second) {$this->timestamp=mktime($hour, $minute, $second, $month, $day, $year);}
 
   function isvalid() { if($this->timestamp==0)return false;else return true; } 
-  static function emptydate() { return new MyDateTime(0,0,0,0,0,0); } 
+  static function emptydate() { $date = new MyDateTime(0,0,0,0,0,0);$date->timestamp=0; return $date;} 
   static function today() { $today = getdate(); return new MyDateTime($today['year'],$today['mon'],$today['mday'],$today['hours'],$today['minutes'],$today['seconds']); 
   /* [year] => 2003 [mon] => 6 [month] => June [yday] => 167 [mday] => 17 [wday] => 2 [weekday] => Tuesday [hours] => 21 [minutes] => 58 [seconds] => 40 [0] => 1055901520 $this->year=$today['year']; //2003 $this->month=$today['mon']; //6 $this->yearday=$today['yday']; //167 $this->mday=$today['mday']; //17 $this->weekday=$today['wday']; //2 $this->hour=; //21 $this->minute=; //68 $this->second=; //40 $this->timestamp=$today['0']; //1055901520 return $this; */ } 
 
