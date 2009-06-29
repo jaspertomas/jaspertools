@@ -13,16 +13,14 @@ class MyDateTime
     echo new MyDateTime(2001,2,3,4,5,6);
 
   */
-  private $timestamp=0;
-  function __construct($year,$month,$day,$hour,$minute,$second) {$this->timestamp=mktime($hour, $minute, $second, $month, $day, $year);}
+  public $timestamp=0;
+  function __construct($year,$month,$day,$hour,$minute,$second) { $this->timestamp=mktime($hour, $minute, $second, $month, $day, $year); } 
 
+  function isvalid() { if($this->timestamp==0)return false;else return true; } 
   static function emptydate() { return new MyDateTime(0,0,0,0,0,0); } 
-  static function today() { $today = getdate(); return new MyDateTime($today['year'],$today['mon'],$today['mday'],$today['hours'],$today['minutes'],$today['seconds']); 
-  /* [year] => 2003 [mon] => 6 [month] => June [yday] => 167 [mday] => 17 [wday] => 2 [weekday] => Tuesday [hours] => 21 [minutes] => 58 [seconds] => 40 [0] => 1055901520 $this->year=$today['year']; //2003 $this->month=$today['mon']; //6 $this->yearday=$today['yday']; //167 $this->mday=$today['mday']; //17 $this->weekday=$today['wday']; //2 $this->hour=; //21 $this->minute=; //68 $this->second=; //40 $this->timestamp=$today['0']; //1055901520 return $this; */ } 
+  static function today() { $today = getdate(); return new MyDateTime($today['year'],$today['mon'],$today['mday'],$today['hours'],$today['minutes'],$today['seconds']); /* [year] => 2003 [mon] => 6 [month] => June [yday] => 167 [mday] => 17 [wday] => 2 [weekday] => Tuesday [hours] => 21 [minutes] => 58 [seconds] => 40 [0] => 1055901520 $this->year=$today['year']; //2003 $this->month=$today['mon']; //6 $this->yearday=$today['yday']; //167 $this->mday=$today['mday']; //17 $this->weekday=$today['wday']; //2 $this->hour=; //21 $this->minute=; //68 $this->second=; //40 $this->timestamp=$today['0']; //1055901520 return $this; */ } 
 
   static function frommysql($string) { if(MyTools::slugify($string)=="" or MyTools::slugify($string)=="n-a") return self::emptydate(); $array=explode("-",$string); return new MyDateTime($array[0],$array[1],$array[2],0,0,0); } 
-  static function fromymd($year,$month,$day) { return new MyDateTime($year,$month,$day,0,0,0); } 
-  static function frommdy($month,$day,$year) { return new MyDateTime($year,$month,$day,0,0,0); } 
   static function fromdatetime($string) 
   { 
     if(MyTools::slugify($string)=="" or MyTools::slugify($string)=="n-a") 
@@ -44,12 +42,11 @@ class MyDateTime
     if(MyTools::slugify($string)=="" or MyTools::slugify($string)=="n-a") 
       return self::emptydate(); 
 
-    $array=explode(" ",$string); 
-    $datearray=explode("-",$array[0]);
+    $datearray=explode("-",$string); 
 
     return new MyDateTime($datearray[0],$datearray[1],$datearray[2],0,0,0); 
   } 
-  static function fromtimestamp($timestamp) {$date=self::emptydate();$date->timestamp=$timestamp;return $date;}
+  static function fromtimestamp() { }
 
   function totimestamp() { return $this->timestamp; }
   function __toString() 
@@ -123,16 +120,4 @@ class MyDateTime
   function addhours($num) { $this->timestamp+=($num*60*60);return $this; }
   function addminutes($num) { $this->timestamp+=($num*60);return $this; }
   function addseconds($num) { $this->timestamp+=$num;return $this; }
-
-  function isearlierthan($date){return $this->timestamp < $date->totimestamp();}
-  function islaterthan($date){return $this->timestamp > $date->totimestamp();}
-  function isequalto($date){return $this->timestamp == $date->totimestamp();}
-  function isearlierthanorequalto($date){return $this->timestamp <= $date->totimestamp();}
-  function islaterthanorequalto($date){return $this->timestamp >= $date->totimestamp();}
-
-  function isbefore($date){return $this->timestamp < $date->totimestamp();}
-  function isafter($date){return $this->timestamp > $date->totimestamp();}
-  function ison($date){return $this->timestamp == $date->totimestamp();}
-  function isonorbefore($date){return $this->timestamp <= $date->totimestamp();}
-  function isonorafter($date){return $this->timestamp >= $date->totimestamp();}
 }
