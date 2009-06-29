@@ -13,7 +13,7 @@ class MyDateTime
     echo new MyDateTime(2001,2,3,4,5,6);
 
   */
-  public $timestamp=0;
+  private $timestamp=0;
   function __construct($year,$month,$day,$hour,$minute,$second) {$this->timestamp=mktime($hour, $minute, $second, $month, $day, $year);}
 
   function isvalid() { if($this->timestamp==0)return false;else return true; } 
